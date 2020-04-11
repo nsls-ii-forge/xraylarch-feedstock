@@ -14,7 +14,7 @@ source:
     - 0002-MNT-remove-the-feff-wrappers-and-binaries.patch
 
 build:
-  number: 0
+  number: 1
   script: |
     # We do not have a license to distribute built FEFF binaries.
     # We may have one to deploy it to the floor, but definitely not to make
@@ -48,7 +48,6 @@ requirements:
     - six >=1.10
     - sqlalchemy >=0.9
     - termcolor
-    - tomopy
     - uncertainties
     - wxmplot
     - wxpython
