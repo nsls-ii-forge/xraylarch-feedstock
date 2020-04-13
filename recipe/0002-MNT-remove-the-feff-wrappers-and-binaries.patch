@@ -9,10 +9,10 @@ Do not think we have a license to distribute these
  1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index b7bd2362..4cd94be3 100644
+index 95cc7289..cd7da6f1 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -104,20 +104,18 @@ if uname == 'win':
+@@ -82,21 +82,18 @@ if uname == 'win':
      larchbin = 'larch-script.py'
  
  # list of top level scripts to add to Python's bin/
