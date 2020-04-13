@@ -11,7 +11,12 @@ index b474c986..c663d47d 100644
  from .site_config import icondir, home_dir, uname
  from .shell import shell
  from .xmlrpc_server import larch_server_cli
-@@ -74,26 +72,8 @@ class LarchApp:
+@@ -69,31 +67,12 @@ class LarchApp:
+         self.name = name
+         self.script = script
+         self.terminal = terminal
+-        self.icon = "%s.%s" % (icon, ico_ext)
+         bindir = 'Scripts' if uname == 'win' else 'bin'
          self.bindir = os.path.join(sys.prefix, bindir)
  
      def create_shortcut(self):
