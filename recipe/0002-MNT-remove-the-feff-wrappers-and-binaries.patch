@@ -1,18 +1,8 @@
-From 27cef1f230244e0fa7d1820f79dd56888384b31b Mon Sep 17 00:00:00 2001
-From: Thomas A Caswell <tcaswell@bnl.gov>
-Date: Tue, 2 Jul 2019 16:22:12 -0400
-Subject: [PATCH 2/2] MNT: remove the feff wrappers and binaries
-
-Do not think we have a license to distribute these
----
- setup.py | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
 diff --git a/setup.py b/setup.py
-index b7bd2362..4cd94be3 100644
+index 95cc7289..cd7da6f1 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -104,20 +104,18 @@ if uname == 'win':
+@@ -82,20 +82,18 @@ if uname == 'win':
      larchbin = 'larch-script.py'
  
  # list of top level scripts to add to Python's bin/
@@ -36,6 +26,3 @@ index b7bd2362..4cd94be3 100644
  
  
  if INSTALL:
--- 
-2.20.1.390.gb5101f9297
-

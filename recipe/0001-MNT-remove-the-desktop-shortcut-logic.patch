@@ -1,51 +1,51 @@
-From 3abf8ae5bcc200d23a71a0ca7e5834fe0c827863 Mon Sep 17 00:00:00 2001
-From: Thomas A Caswell <tcaswell@bnl.gov>
-Date: Tue, 2 Jul 2019 16:21:45 -0400
-Subject: [PATCH 1/2] MNT: remove the desktop shortcut logic
-
----
- larch/apps.py | 36 ++----------------------------------
- setup.py      |  5 -----
- 2 files changed, 2 insertions(+), 39 deletions(-)
-
 diff --git a/larch/apps.py b/larch/apps.py
-index 9b0c64cc..94397eaf 100644
+index b474c986..c663d47d 100644
 --- a/larch/apps.py
 +++ b/larch/apps.py
-@@ -2,8 +2,6 @@ import os
- import sys
- import numpy
+@@ -4,8 +4,6 @@ import numpy
  import time
--from pyshortcuts import make_shortcut
--from pyshortcuts.shortcut import Shortcut
+ from argparse import ArgumentParser
  
+-from pyshortcuts import make_shortcut, ico_ext
+-
  from .site_config import icondir, home_dir, uname
  from .shell import shell
-@@ -70,22 +68,7 @@ class LarchApp:
+ from .xmlrpc_server import larch_server_cli
+@@ -69,31 +67,12 @@ class LarchApp:
+         self.name = name
+         self.script = script
+         self.terminal = terminal
+-        self.icon = "%s.%s" % (icon, ico_ext)
+         bindir = 'Scripts' if uname == 'win' else 'bin'
          self.bindir = os.path.join(sys.prefix, bindir)
  
      def create_shortcut(self):
--        script =os.path.join(self.bindir, self.script)
--        try:
--            scut = Shortcut(script, name=self.name, folder='Larch')
--            make_shortcut(script, name=self.name,
--                          icon=os.path.join(icondir, self.icon),
--                          terminal=self.terminal,
--                          folder='Larch')
--            if uname == 'linux':
--                os.chmod(scut.target, 493)
--        except:
--            print("Warning: could not create shortcut to ", script)
--        if uname == 'darwin':
+-        script = os.path.join(self.bindir, self.script)
+-        icon = os.path.join(icondir, self.icon)
+-        if HAS_CONDA and uname == 'win':
+-            baserunner = os.path.join(self.bindir, 'baserunner.bat')
+-            script = "%s %s" % (baserunner, self.script)
+-            if not os.path.exists(baserunner) or os.stat(baserunner).st_size < 10:
+-                fh = open(baserunner, 'w')
+-                fh.write(WIN_BASERUNNER)
+-                fh.close()
+-                time.sleep(0.5)
+-
+-        make_shortcut(script, name=self.name, icon=icon,
+-                      terminal=self.terminal, folder='Larch')
+-
+-        if HAS_CONDA and uname == 'darwin':
 -            try:
 -                fix_darwin_shebang(script)
 -            except:
 -                print("Warning: could not fix Mac exe for ", script)
+-
 +        ...
- 
- 
++        
  APPS = (LarchApp('Larch CLI', 'larch', terminal=True),
-@@ -99,11 +82,6 @@ APPS = (LarchApp('Larch CLI', 'larch', terminal=True),
+         LarchApp('Larch GUI', 'larch --wxgui'),
+         LarchApp('XAS Viewer',  'xas_viewer',  icon='onecone'),
+@@ -105,12 +85,6 @@ APPS = (LarchApp('Larch CLI', 'larch', terminal=True),
          LarchApp('1D XRD Viewer', 'xrd1d_viewer') )
  
  
@@ -54,10 +54,11 @@ index 9b0c64cc..94397eaf 100644
 -    for app in APPS:
 -        app.create_shortcut()
 -
- # entry points:
- def run_gse_mapviewer():
-     """GSE Mapviewer """
-@@ -155,16 +133,6 @@ def run_dioptas_larch():
+-
+ def make_cli(description='run larch program', filedesc='data file'):
+     usage = "usage: %prog [options] file"
+     parser = ArgumentParser(description=description)
+@@ -172,16 +146,6 @@ def run_dioptas_larch():
      from dioptas import main
      main()
  
@@ -74,31 +75,27 @@ index 9b0c64cc..94397eaf 100644
  def run_larch_server():
      "run larch XMLRPC server"
      larch_server_cli()
-@@ -206,7 +174,7 @@ def run_larch():
+@@ -231,7 +195,6 @@ def run_larch():
  
      # create desktop icons
-     if options.makeicons:
+     if args.makeicons:
 -        make_desktop_shortcuts()
-+        ...
+         return
  
      # run in server mode
-     elif options.server_mode:
 diff --git a/setup.py b/setup.py
-index f64b52c4..b7bd2362 100644
+index b0e6420f..95cc7289 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -174,11 +174,6 @@ setup(name = 'xraylarch',
+@@ -152,11 +152,6 @@ setup(name = 'xraylarch',
                     'Topic :: Scientific/Engineering'],
        )
  
 -# create desktop icons
 -if INSTALL or DEVELOP:
--    subprocess.check_call((pjoin(sys.exec_prefix, pyexe),
+-    subprocess.check_call((pjoin(sys.exec_prefix, sys.executable),
 -                           pjoin(sys.exec_prefix, bindir, larchbin), '-m'))
 -
  if len(missing) > 0:
      dl = "#%s#" % ("="*75)
      msg = """%s
--- 
-2.20.1.390.gb5101f9297
-
