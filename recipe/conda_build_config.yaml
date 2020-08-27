@@ -2,3 +2,12 @@ channel_sources:
   - nsls2forge,defaults
 channel_targets:
   - nsls2forge main
+docker_image:
+  - nsls2/nsls2forge:latest
+cuda_compiler_version:
+  - None
+python:
+  - 3.6
+  - 3.7
+  # wxpython does not exist for python 3.8 as of 08/26/2020 in defaults, need to revisit later.
+  # - 3.8

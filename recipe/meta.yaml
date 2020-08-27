@@ -1,6 +1,6 @@
 {% set name = "xraylarch" %}
-{% set version = "0.9.45" %}
-{% set sha256 = "f9221be94d9ae4ebb3cc2897dd08b7d7dbc492ab21bbd5accc9421471342f848" %}
+{% set version = "0.9.47" %}
+{% set sha256 = "4f76db402947464a21e09ff0b1e1a442b651a7de452918de04b9c828f6071af8" %}
 
 package:
   name: {{ name|lower }}
@@ -22,7 +22,7 @@ build:
     rm -rf larch/bin  # [not win]
     rmdir /q /s larch/bin  # [win]
     {{ PYTHON }} -m pip install . --no-deps -vv
-  skip: True  # [py<36]
+  skip: true  # [py<36]
 
 requirements:
   host:
@@ -30,29 +30,30 @@ requirements:
     - pip
   run:
     - python
-    - asteval >=0.9.12
+    - asteval >=0.9.18
     - fabio
-    - h5py >=2.2
-    - lmfit >=0.9.9
-    - matplotlib >=1.5.1
+    - h5py >=2.8
+    - lmfit >=1.0
+    - matplotlib >=3.0
     - numpy >=1.7
     - peakutils >=1.0.0
     - pillow >=3.4
     - psutil
     - pyFAI
+    - pyyaml
     - requests >=2.1
     - scikit-image
     - scikit-learn
-    - scipy >=0.17
+    - scipy >=1.2
     - silx
     - six >=1.10
     - sqlalchemy >=0.9
     - termcolor
-    - tomopy
     - uncertainties
     - wxmplot
     - wxpython
     - wxutils
+    - xraydb >=4.3
 
 test:
   imports:
@@ -62,7 +63,6 @@ about:
   home: https://xraypy.github.io/xraylarch
   license: BSD-2
   license_file: LICENSE
-  summary: "Larch: X-ray Analysis for Synchrotron Applications using Python"
+  summary: 'Larch: X-ray Analysis for Synchrotron Applications using Python'
   doc_url: https://xraypy.github.io/xraylarch
   dev_url: https://github.com/xraypy/xraylarch
-
