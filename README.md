@@ -3,7 +3,7 @@ About xraylarch
 
 Home: https://xraypy.github.io/xraylarch
 
-Package license: BSD-2
+Package license: BSD-2-Clause
 
 Feedstock license: BSD-3-Clause
 
