@@ -1,6 +1,6 @@
 {% set name = "xraylarch" %}
-{% set version = "0.9.47" %}
-{% set sha256 = "4f76db402947464a21e09ff0b1e1a442b651a7de452918de04b9c828f6071af8" %}
+{% set version = "0.9.48" %}
+{% set sha256 = "f9b9a3b1d3bbfbec2829e208c01a36b76067f1ae6b9949e05ebb5ddff70a9171" %}
 
 package:
   name: {{ name|lower }}
@@ -61,7 +61,7 @@ test:
 
 about:
   home: https://xraypy.github.io/xraylarch
-  license: BSD-2
+  license: BSD-2-Clause
   license_file: LICENSE
   summary: 'Larch: X-ray Analysis for Synchrotron Applications using Python'
   doc_url: https://xraypy.github.io/xraylarch
