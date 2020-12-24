@@ -1,5 +1,5 @@
 diff --git a/larch/apps.py b/larch/apps.py
-index b474c986..c663d47d 100644
+index 6ac85168..e265f359 100644
 --- a/larch/apps.py
 +++ b/larch/apps.py
 @@ -4,8 +4,6 @@ import numpy
@@ -11,17 +11,24 @@ index b474c986..c663d47d 100644
  from .site_config import icondir, home_dir, uname
  from .shell import shell
  from .xmlrpc_server import larch_server_cli
-@@ -69,31 +67,12 @@ class LarchApp:
+@@ -69,37 +67,12 @@ class LarchApp:
          self.name = name
          self.script = script
          self.terminal = terminal
--        self.icon = "%s.%s" % (icon, ico_ext)
+-        self.icon = icon
          bindir = 'Scripts' if uname == 'win' else 'bin'
          self.bindir = os.path.join(sys.prefix, bindir)
  
      def create_shortcut(self):
 -        script = os.path.join(self.bindir, self.script)
 -        icon = os.path.join(icondir, self.icon)
+-        from pyshortcuts import ico_ext
+-        if isinstance(ico_ext, (list, tuple)):
+-            for ext in ico_ext:
+-                ticon = "{:s}.{:s}".format(icon, ext)
+-                if os.path.exists(ticon):
+-                    icon = ticon
+-
 -        if HAS_CONDA and uname == 'win':
 -            baserunner = os.path.join(self.bindir, 'baserunner.bat')
 -            script = "%s %s" % (baserunner, self.script)
@@ -39,13 +46,12 @@ index b474c986..c663d47d 100644
 -                fix_darwin_shebang(script)
 -            except:
 -                print("Warning: could not fix Mac exe for ", script)
--
 +        ...
-+        
++
+ 
  APPS = (LarchApp('Larch CLI', 'larch', terminal=True),
          LarchApp('Larch GUI', 'larch --wxgui'),
-         LarchApp('XAS Viewer',  'xas_viewer',  icon='onecone'),
-@@ -105,12 +85,6 @@ APPS = (LarchApp('Larch CLI', 'larch', terminal=True),
+@@ -112,12 +85,6 @@ APPS = (LarchApp('Larch CLI', 'larch', terminal=True),
          LarchApp('1D XRD Viewer', 'xrd1d_viewer') )
  
  
@@ -58,7 +64,7 @@ index b474c986..c663d47d 100644
  def make_cli(description='run larch program', filedesc='data file'):
      usage = "usage: %prog [options] file"
      parser = ArgumentParser(description=description)
-@@ -172,16 +146,6 @@ def run_dioptas_larch():
+@@ -179,16 +146,6 @@ def run_dioptas_larch():
      from dioptas import main
      main()
  
@@ -75,7 +81,7 @@ index b474c986..c663d47d 100644
  def run_larch_server():
      "run larch XMLRPC server"
      larch_server_cli()
-@@ -231,7 +195,6 @@ def run_larch():
+@@ -238,7 +195,6 @@ def run_larch():
  
      # create desktop icons
      if args.makeicons:
@@ -84,18 +90,31 @@ index b474c986..c663d47d 100644
  
      # run in server mode
 diff --git a/setup.py b/setup.py
-index b0e6420f..95cc7289 100644
+index f9f5f75e..df89402b 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -152,11 +152,6 @@ setup(name = 'xraylarch',
+@@ -188,24 +188,6 @@ setup(name = 'xraylarch',
                     'Topic :: Scientific/Engineering'],
        )
  
 -# create desktop icons
 -if INSTALL or DEVELOP:
--    subprocess.check_call((pjoin(sys.exec_prefix, sys.executable),
--                           pjoin(sys.exec_prefix, bindir, larchbin), '-m'))
+-    py_exe = pjoin(sys.exec_prefix, sys.executable)
+-    larch_exe = pjoin(sys.exec_prefix, bindir, larchbin)
+-    if not pexists(larch_exe):
+-        user = os.path.expanduser('~')
 -
+-        for base in (sys.prefix, sys.exec_prefix,
+-                     pjoin(user, 'anaconda3'),
+-                     pjoin(user, 'local'),
+-                     '/opt/local', '/anaconda3/', '/opt/anaconda3'):
+-            if pexists(pjoin(base, larchbin)):
+-                larch_exe = pexists(pjoin(base, larchbin))
+-            elif pexists(pjoin(base, 'bin', larchbin)):
+-                larch_exe = pexists(pjoin(base, larchbin))
+-
+-    if pexists(larch_exe):
+-        subprocess.check_call((py_exe,  larch_exe, '-m'))
+ 
  if len(missing) > 0:
      dl = "#%s#" % ("="*75)
-     msg = """%s
