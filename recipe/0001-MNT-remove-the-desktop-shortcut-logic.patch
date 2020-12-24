@@ -84,10 +84,10 @@ index b474c986..c663d47d 100644
  
      # run in server mode
 diff --git a/setup.py b/setup.py
-index b0e6420f..95cc7289 100644
+index f9f5f75e..93bf3fe2 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -152,11 +152,6 @@ setup(name = 'xraylarch',
+@@ -188,25 +188,6 @@ setup(name = 'xraylarch',
                     'Topic :: Scientific/Engineering'],
        )
  
