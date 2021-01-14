@@ -14,9 +14,6 @@ jobs:
       osx_64_python3.8:
         CONFIG: osx_64_python3.8
         UPLOAD_PACKAGES: 'True'
-      osx_64_python3.9:
-        CONFIG: osx_64_python3.9
-        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
   steps:

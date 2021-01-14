@@ -7,12 +7,12 @@ cdt_name:
 numpy:
   - 1.16
   - 1.16
-  - 1.16
+# - 1.16
 python:
   - 3.7
   - 3.8
-  - 3.9
+# - 3.9
 python_impl:
   - cpython
   - cpython
-  - cpython
+# - cpython
