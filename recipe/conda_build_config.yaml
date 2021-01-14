@@ -4,15 +4,15 @@ channel_targets:
   - nsls2forge main
 cdt_name:
   - cos6
-  - cos6
 numpy:
   - 1.16
   - 1.16
+# - 1.16
 python:
-  - 3.6
   - 3.7
-  # wxpython does not exist for python 3.8 as of 08/26/2020 in defaults, need to revisit later.
-  # - 3.8
+  - 3.8
+# - 3.9
 python_impl:
   - cpython
   - cpython
+# - cpython
