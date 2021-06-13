@@ -1,6 +1,6 @@
 {% set name = "xraylarch" %}
-{% set version = "0.9.50" %}
-{% set sha256 = "f64eee63bca13a67d313a06c9b437502ea59a5ca961075756ebf453e9dc1da81" %}
+{% set version = "0.9.52" %}
+{% set sha256 = "a6552a3b2ed227e9fb0e707d00901fe321edb905ba8a35bd0d93c04cedd85f69" %}
 
 package:
   name: {{ name|lower }}
@@ -14,7 +14,7 @@ source:
     - 0002-MNT-remove-the-feff-wrappers-and-binaries.patch
 
 build:
-  number: 1
+  number: 0
   script: |
     # We do not have a license to distribute built FEFF binaries.
     # We may have one to deploy it to the floor, but definitely not to make
